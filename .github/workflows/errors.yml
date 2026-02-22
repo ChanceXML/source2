@@ -20,6 +20,18 @@ jobs:
         run: |
           haxe -cp commandline -D analyzer-optimize --run Main setup -s --no-vscheck
 
+      - name: Lock OpenFL + Lime Versions
+        run: |
+          haxelib install lime 8.1.2
+          haxelib install openfl 9.3.3
+          haxelib set lime 8.1.2
+          haxelib set openfl 9.3.3
+
+      - name: Force Clean hxcpp
+        run: |
+         haxelib set hxcpp git
+         haxelib remove hxcpp 4.3.2
+
       - name: Scan Source Files for Errors
         run: |
           echo "Scanning all Haxe source files for errors..."
