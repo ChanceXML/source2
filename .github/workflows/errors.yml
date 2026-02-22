@@ -1,0 +1,30 @@
+name: check errors
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Haxe 4.2.5
+        uses: HaxeFoundation/setup-haxe@v2
+        with:
+          haxe-version: "4.2.5"
+
+      - name: Run Codename Setup
+        run: |
+          haxe -cp commandline -D analyzer-optimize --run Main setup -s --no-vscheck
+
+      - name: Scan Source Files for Errors
+        run: |
+          echo "Scanning all Haxe source files for errors..."
+          # Find all .hx files under 'source/' and attempt to typecheck them
+          find source -name '*.hx' | while read file; do
+            echo "Checking $file"
+            haxe -main DummyMain -js /dev/null -cp source -D analyzer-optimize -lib flixel -lib openfl -lib lime
+          done
