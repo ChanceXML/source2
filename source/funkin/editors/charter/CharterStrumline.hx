@@ -22,7 +22,6 @@ class CharterStrumline extends UISprite {
 	public var curMenu:UIContextMenu = null;
 
 	public var vocals:FlxSound;
-	public var voicesMuted:Bool = false;
 
 	public var keyCount:Int = 4;
 	public var startingID(get, null):Int;
@@ -148,10 +147,6 @@ class CharterStrumline extends UISprite {
 		}
 		vocals.group = FlxG.sound.defaultMusicGroup;
 	}
-
-	public function updateVoicesVolume() {
-		vocals.volume = (voicesMuted || (Charter.instance?.voicesMuted ?? false)) ? 0 : 1;
-	}
 }
 
 class CharterStrumlineOptions extends UITopMenuButton {
@@ -181,10 +176,9 @@ class CharterStrumlineOptions extends UITopMenuButton {
 			{
 				label: TU.translate("charter.strumLine.muteVocals"),
 				onSelect: function(_) {
-					strLine.voicesMuted = !strLine.voicesMuted;
-					strLine.updateVoicesVolume();
+					strLine.vocals.volume = strLine.vocals.volume > 0 ? 0 : 1;
 				},
-				icon: strLine.voicesMuted ? 1 : 0
+				icon: strLine.vocals.volume > 0 ? 0 : 1
 			},
 			null,
 			{
