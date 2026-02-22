@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libraries checkVersion="update || all">
+  <if cond="update || all">
+    <print pretty="true">Installing stable Codename mobile setup...</print>
+
+    <!-- Core (Stable Official Versions) -->
+    <lib name="lime" version="8.1.2" />
+    <lib name="openfl" version="9.3.3" />
+    <git name="hxcpp" url="https://github.com/CodenameCrew/cne-hxcpp" />
+    
+
+    <!-- Flixel -->
+    <git name="flixel" url="https://github.com/CodenameCrew/cne-flixel" />
+    <git name="flixel-addons" url="https://github.com/CodenameCrew/cne-flixel-addons" />
+    <git name="flixel-animate" url="https://github.com/MaybeMaru/flixel-animate/" skipDeps="true"/>
+
+    <!-- Codename Required Libraries -->
+    <git name="hscript-improved" url="https://github.com/CodenameCrew/hscript-improved" ref="codename-dev" />
+    <git name="flxanimate" url="https://github.com/CodenameCrew/cne-flxanimate" />
+    <git name="funkin-modchart" url="https://github.com/TheoDevelops/FunkinModchart" ref="f30676579d8de7ccac7d12e13b664e8b2c42c6bf" skipDeps="true" />
+
+    <!-- 3D -->
+    <git name="away3d" url="https://github.com/CodenameCrew/away3d" />
+    
+    <!-- Media / Extras -->
+    <git name="hxvlc" url="https://github.com/MAJigsaw77/hxvlc" />
+    
+    <!-- Physics -->
+    <lib name="nape-haxe4" />
+
+    <!-- Utilities -->
+    <lib name="markdown" />
+    <lib name="hxp" />
+    <lib name="format" />
+    <lib name="hxcpp-debug-server" />
+
+    <!-- Android -->
+    <git name="extension-androidtools" url="https://github.com/LimeExtensions/extension-androidtools" />
+  </if>
+</libraries>
