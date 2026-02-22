@@ -11,11 +11,14 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Setup Haxe 4.2.5
-        uses: HaxeFoundation/setup-haxe@v2
-        with:
-          haxe-version: "4.2.5"
-
+      - name: Install Haxe 4.2.5
+        run: |
+          wget https://github.com/HaxeFoundation/haxe/releases/download/4.2.5/haxe-4.2.5-linux64.tar.gz
+          tar -xzf haxe-4.2.5-linux64.tar.gz
+          mv haxe_* haxe
+          sudo mv haxe /usr/local/
+          echo "/usr/local/haxe" >> $GITHUB_PATH
+          
       - name: Run Codename Setup
         run: |
           haxe -cp commandline -D analyzer-optimize --run Main setup -s --no-vscheck
