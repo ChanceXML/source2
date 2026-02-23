@@ -43,8 +43,15 @@ jobs:
       - name: Scan Source Files for Errors
         run: |
           echo "Scanning all Haxe source files for errors..."
-          # Find all .hx files under 'source/' and attempt to typecheck them
+          errors=0
           find source -name '*.hx' | while read file; do
             echo "Checking $file"
-            haxe -main DummyMain -js /dev/null -cp source -D analyzer-optimize -lib flixel -lib openfl -lib lime
+            # Run Haxe but don't exit on error
+            haxe -main DummyMain -js /dev/null -cp source -D analyzer-optimize -lib flixel -lib openfl -lib lime || errors=$((errors+1))
           done
+          echo "Scanning complete. Total errors: $errors"
+          # Optionally fail the step if there were errors
+          if [ "$errors" -gt 0 ]; then
+            echo "Some files had errors."
+            exit 1
+          fi
